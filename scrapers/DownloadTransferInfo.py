@@ -10,8 +10,6 @@ from selenium.webdriver.firefox.options import Options
 import os
 import fitz
 
-from LangaraCourseInfo import Database
-
 class TransferScraper:
     def __init__(self, institution = "LANG", delay = 0.3, headless = True) -> None:
         
@@ -185,7 +183,7 @@ class TransferScraper:
         
             
     # Sends PDFs in /downloads to the database then maybe delete them
-    def sendPDFToDatabase(database:Database, delete = True):
+    def sendPDFToDatabase(database, delete = True):
         dir = "downloads/"
         pdfs = os.listdir(dir)
                         
@@ -211,7 +209,7 @@ class TransferScraper:
             for p in pdfs:
                 os.remove(dir+p)       
             
-    def retrieveAllPDFFromDatabase(database:Database, path="downloads/"):
+    def retrieveAllPDFFromDatabase(database, path="downloads/"):
         dir = path
         
         # don't overwrite files

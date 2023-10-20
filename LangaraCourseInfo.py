@@ -294,9 +294,14 @@ class Utilities():
         # Delete PDF files from filesystem
         #TransferScraper.sendPDFToDatabase()
     
-    def exportDatabase(self):
+    def exportDatabase(self, filename_override=None):
         t = datetime.today()
-        new_db = sqlite3.connect(f'LangaraCourseInfo{t.year}{t.month}{t.day}.db')
+        
+        fn = filename_override
+        if filename_override == None:
+            fn = f'LangaraCourseInfo{t.year}{t.month}{t.day}.db'
+        
+        new_db = sqlite3.connect(fn)
         # copies all tables
         query = "".join(line for line in self.db.connection.iterdump())
         new_db.executescript(query)
