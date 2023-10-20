@@ -172,20 +172,12 @@ class Utilities():
 db = Database()
 u = Utilities(db)
 
-#u.rebuildDatabaseFromStored()
-
 #u.buildDatabaseFromScratch()
 
-#TransferScraper.retrieveAllPDFFromDatabase(db)
-#transfers = TransferParser.parseTransferPDFs()
-#db.insertTransfers(transfers)
-
 #u.rebuildDatabaseFromStored()
+
+updates = u.updateCurrentSemester()
 
 u.exportDatabase()
 
-#updates = u.updateCurrentSemester()
-
 #u.databaseSummary()
-#u.exportDatabase()
-
