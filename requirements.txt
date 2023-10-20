@@ -1,13 +1,9 @@
 bs4
 lxml
 faust-cchardet
-fastapi
-uvicorn
-schedule
 requests
 pdfquery
-six
 pydantic
-python-dotenv
+six
 selenium
 pymupdf

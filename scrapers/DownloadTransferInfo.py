@@ -10,7 +10,7 @@ from selenium.webdriver.firefox.options import Options
 import os
 import fitz
 
-from database import Database
+from LCIdatabase import Database
 
 class TransferScraper:
     def __init__(self, institution = "LANG", delay = 0.3, headless = True) -> None:

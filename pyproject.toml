@@ -1,0 +1,47 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "LangaraCourseInfo"
+version = "1.0.0"
+description = "Langara Course Information Aggregator"
+readme = "README.md"
+authors = [{ name = "Anderson T", email = "tseng.andersonn@gmail.com" }]
+#license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+
+keywords = ["langara", "college", "scraper", "data"]
+
+dependencies = [
+    "bs4",
+    "lxml",
+    "faust-cchardet",
+    "requests",
+    "pdfquery",
+    "pymupdf",
+    "pydantic",
+    "six",
+    "selenium",
+    'tomli; python_version < "3.11"',
+]
+
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/Highfire1/LangaraCourseInfo"
+
+#[project.scripts]
+#realpython = "reader.__main__:main"
+
+[tool.setuptools]
+py-modules = ["parsers", "schema", "scrapers", "database", "utilities"]
