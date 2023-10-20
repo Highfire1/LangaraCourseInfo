@@ -6,13 +6,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "LangaraCourseInfo"
-version = "1.0.0"
+
+version = "1.0.5"
+
 description = "Langara Course Information Aggregator"
 readme = "README.md"
 authors = [{ name = "Anderson T", email = "tseng.andersonn@gmail.com" }]
 #license = { file = "LICENSE" }
+
 classifiers = [
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
 ]
@@ -44,4 +46,5 @@ Homepage = "https://github.com/Highfire1/LangaraCourseInfo"
 #realpython = "reader.__main__:main"
 
 [tool.setuptools]
-py-modules = ["parsers", "schema", "scrapers", "database", "utilities"]
+py-modules = ["LangaraCourseInfo"]
+packages = ["parsers", "schema", "scrapers"]

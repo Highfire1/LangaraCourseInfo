@@ -1,6 +1,4 @@
-from LCIdatabase import Database
-from LCIutilities import Utilities
-                
+from LangaraCourseInfo import Database, Utilities
 
 db = Database()
 u = Utilities(db)
