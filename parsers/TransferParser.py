@@ -7,7 +7,9 @@ from schema.Transfer import Transfers, Transfer
 '''
 
 class TransferParser:
-        
+    
+    
+    # TODO: use PyMuPDF to speed this up   
     def parseTransferPDFs() -> list[Transfer]:
         pdfs = os.listdir("downloads/")
         

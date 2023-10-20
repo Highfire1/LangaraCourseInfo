@@ -48,6 +48,25 @@ class ScheduleEntry(BaseModel):
                 "instructor": "Adam Solomonian"
             }
         }
+        
+    def isIn(self, schedules:list):
+
+        for s in schedules:
+            if self.isEqual(s):
+                return True
+        
+        return False
+        
+    # TODO: figure out how to do this properly
+    def isEqual(self, sched):
+        assert isinstance(sched, ScheduleEntry)
+        
+        x = sched
+        return self.type == x.type and self.days == x.days and self.time == x.time and self.start == x.start and self.end == x.end and self.room == x.room and self.instructor == x.instructor
+        
+    def props(cls):   
+        return [i for i in cls.__dict__.keys() if i[:1] != '_']
+        
 # https://langara.ca/reg-guide/before-you-register/search-for-courses.html
 
 class RPEnum(Enum):
@@ -71,9 +90,9 @@ class Course(BaseModel):
     crn: int                            = Field(description="Always 5 digits long.")
     subject: str                        = Field(description="Subject area e.g. ```CPSC```.")
     course_code: int                    = Field(description="Course code e.g. ```1050```.")
-    section: str                        = Field(description="Section e.g. ```001```, ```W01```, ```M01```.")
+    section: str | None                        = Field(description="Section e.g. ```001```, ```W01```, ```M01```.")
     credits: float                      = Field(description="Credits the course is worth.")
-    title: str                          = Field(description="Title of the course e.g. ```Intro to Computer Science```.")
+    title: str | None                         = Field(description="Title of the course e.g. ```Intro to Computer Science```.")
     add_fees: float | None              = Field(description="Additional fees (in dollars).")
     rpt_limit: int | None               = Field(description="Repeat limit. There may be other repeat limits not listed here you should keep in mind.")
     notes: str | None                   = Field(description="Notes for a section.")
@@ -83,6 +102,15 @@ class Course(BaseModel):
     
     def __str__(self):
         return f"Course: {self.subject} {self.course_code} CRN: {self.crn} {self.schedule}"
+    
+    # TODO: figure out how to do this properly
+    def isEqual(self, course):
+        assert isinstance(course, Course)
+        
+        return self.props() == course.props()
+        
+    def props(cls):   
+        return [i for i in cls.__dict__.keys() if i[:1] != '_']
     
     class Config:
         json_schema_extra = {
@@ -181,7 +209,7 @@ class Semester(BaseModel):
 
 
     def __str__(self):
-        s =  f"Semester data for {self.year}{self.semester}:\n"
+        s =  f"Semester data for {self.year}{self.term}:\n"
         s += f"{self.courseCount()} sections & "
         s += f"{self.uniqueCoursecount()} unique sections.\n"
         return s

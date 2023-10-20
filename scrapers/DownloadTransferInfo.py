@@ -189,7 +189,6 @@ class TransferScraper:
         
             
     # Sends PDFs in /downloads to the database then maybe delete them
-    # TODO: use PyMuPDF to speed this up
     def sendPDFToDatabase(database:Database, delete = True):
         dir = "downloads/"
         pdfs = os.listdir(dir)

@@ -29,8 +29,9 @@ def getSubjectsFromWeb(year:int, semester:int) -> list | None:
     return subjects
     
 
-def fetchTermFromWeb(year:int, term:int, subjects = None) -> tuple[int, int, str, str, str] | None:
+def fetchTermFromWeb(year:int, term:int, subjects:list[str] = None) -> tuple[int, int, str, str, str] | None:
     print(f"{year}{term} : Downloading data.")
+    
     if subjects == None:
         subjects = getSubjectsFromWeb(year, term)
         if subjects == None:

@@ -59,4 +59,5 @@ class AttributesParser:
             attributes.addAttribSkipDuplicates(a)
                         
             i += 8
-            
+        
+        return attributes
