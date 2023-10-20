@@ -1,9 +1,7 @@
-from concurrent.futures import Future, ThreadPoolExecutor
+from concurrent.futures import Future
 import requests
 from bs4 import BeautifulSoup
 
-import threading
-import queue
 import concurrent.futures
 
 def getSubjectsFromWeb(year:int, semester:int) -> list | None:

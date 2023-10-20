@@ -1,11 +1,7 @@
-import requests
 from bs4 import BeautifulSoup
 
-import cchardet
 import unicodedata
-import os
 import datetime
-import gzip
 
 from schema.Semester import Course, ScheduleEntry, Semester
 

@@ -1,4 +1,3 @@
-from argparse import Action
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchWindowException
 from selenium.webdriver.common.keys import Keys
@@ -8,13 +7,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.options import Options
 
-import pdfquery
 import os
-import time
 import fitz
 
 from database import Database
-from schema.Transfer import Transfer
 
 class TransferScraper:
     def __init__(self, institution = "LANG", delay = 0.3, headless = True) -> None:

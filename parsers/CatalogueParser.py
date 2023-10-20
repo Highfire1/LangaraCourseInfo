@@ -1,11 +1,5 @@
 # https://swing.langara.bc.ca/prod/hzgkcald.P_DisplayCatalog
 from bs4 import BeautifulSoup, element
-import lxml
-import cchardet
-from pydantic import BaseModel
-import requests
-import os
-import json
 
 from schema.Catalogue import Catalogue, CatalogueCourse
 

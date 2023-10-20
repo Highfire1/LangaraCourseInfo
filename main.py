@@ -1,26 +1,20 @@
 from datetime import datetime
-import os
 import sqlite3
-import sys
-import logging
-import uvicorn
-import schedule
-import gzip
 import time
 
-from parsers.AttributesParser import AttributesParser
-
-from parsers.SemesterParser import parseSemesterHTML
-from parsers.CatalogueParser import CatalogueParser
-from parsers.TransferParser import TransferParser
 from database import Database
-from schema.Attribute import Attributes
-from schema.Catalogue import Catalogue
-from schema.Semester import Course, scheduleTypes, ScheduleEntry
 
 from scrapers.DownloadTransferInfo import TransferScraper
 from scrapers.DownloadLangaraInfo import DownloadAllTermsFromWeb, fetchTermFromWeb
 
+from parsers.AttributesParser import AttributesParser
+from parsers.SemesterParser import parseSemesterHTML
+from parsers.CatalogueParser import CatalogueParser
+from parsers.TransferParser import TransferParser
+
+from schema.Attribute import Attributes
+from schema.Catalogue import Catalogue
+from schema.Semester import Course
 
 class Utilities():
     def __init__(self, database:Database) -> None:
@@ -49,8 +43,10 @@ class Utilities():
         print(f"Database built in {total}!")
         
     # Rebuild data by parsing stored HTML and PDF
+    # Mostly used for debugging
     # WARNING: TAKES ~ TEN MINUTES
     def rebuildDatabaseFromStored(self):
+        # Clear old data and recreate tables
         self.db.cursor.executescript("DROP TABLE Sections; DROP TABLE Schedules; DROP TABLE CourseInfo; DROP TABLE TransferInformation")
         self.db.connection.commit()
         self.db.createTables()
@@ -64,7 +60,7 @@ class Utilities():
         for term in html:
             print(f"Parsing HTML for {term[0]}{term[1]} ({len(term[2])}).")
             
-            db.insert_Semester(parseSemesterHTML(term[2]))
+            db.insertSemester(parseSemesterHTML(term[2]))
             CatalogueParser.parseCatalogue(term[3], catalogue)
             AttributesParser.parseHTML(term[4], attributes)
         
@@ -77,6 +73,7 @@ class Utilities():
         transfers = TransferParser.parseTransferPDFs()
         self.db.insertTransfers(transfers)
         # Delete PDF files from filesystem
+        #TransferScraper.sendPDFToDatabase()
     
     def exportDatabase(self):
         t = datetime.today()
@@ -162,8 +159,8 @@ class Utilities():
                     changes.append((db_course, c))
                     break
                 
-        db.insert_Semester(semester)
-        #db.insertLangaraHTML(term[0], term[1], term[2], term[3], term[4])
+        db.insertSemester(semester)
+        db.insertLangaraHTML(term[0], term[1], term[2], term[3], term[4])
         
         c = CatalogueParser.parseCatalogue(term[3])
         a = AttributesParser.parseHTML(term[4])
@@ -179,27 +176,16 @@ u = Utilities(db)
 
 #u.buildDatabaseFromScratch()
 
+#TransferScraper.retrieveAllPDFFromDatabase(db)
+#transfers = TransferParser.parseTransferPDFs()
+#db.insertTransfers(transfers)
+
 #u.rebuildDatabaseFromStored()
 
-updates = u.updateCurrentSemester()
+u.exportDatabase()
 
-for i in updates:
-    
-    print(i[0])
-    print(i[1])
-    print()
+#updates = u.updateCurrentSemester()
+
 #u.databaseSummary()
 #u.exportDatabase()
 
-
-# Utilities
-
-#print(u.countSections(), "unique sections found")
-
-
-
-
-
-
-#latest_semester_update()
-#sys.exit()

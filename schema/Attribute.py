@@ -1,6 +1,4 @@
 from pydantic import BaseModel
-import json 
-import os
 
 
 # TODO: redo this whole schema?

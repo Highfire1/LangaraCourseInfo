@@ -5,10 +5,6 @@ from datetime import datetime
 from schema.Semester import Course, RPEnum
 from schema.Transfer import Transfer
 
-class institutions(Enum):
-    SFU = "SFU"
-    UBCV = "UBCV"
-  
 class availability(Enum):
     spring =        "Spring"
     summer =        "Summer"

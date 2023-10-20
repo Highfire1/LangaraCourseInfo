@@ -1,7 +1,7 @@
 import sqlite3
+
 from schema.Attribute import Attributes
 from schema.Catalogue import Catalogue
-
 from schema.Semester import Course, ScheduleEntry, Semester
 from schema.Transfer import Transfer
 
@@ -123,7 +123,7 @@ class Database:
         self.cursor.execute("SELECT * FROM SemesterHTML ORDER BY year DESC, term DESC")
         return self.cursor.fetchall()
 
-    def insert_Semester(self, semester: Semester):
+    def insertSemester(self, semester: Semester):
         section = []
         for c in semester.courses:
             section.append((semester.year, semester.term, c.RP, c.seats, c.waitlist, c.crn, c.subject, c.course_code, c.section, c.credits, c.title, c.add_fees, c.rpt_limit, c.notes))

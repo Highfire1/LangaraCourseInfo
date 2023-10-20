@@ -1,10 +1,7 @@
 import pdfquery
 import os
 
-from schema.Catalogue import Catalogue
-from schema.Transfer import Transfers, Transfer
-'''
-'''
+from schema.Transfer import Transfer
 
 class TransferParser:
     

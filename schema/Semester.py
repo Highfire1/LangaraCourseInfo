@@ -1,9 +1,7 @@
-import gzip
 from pydantic import BaseModel, Field
 from enum import Enum, IntEnum
 
-from datetime import date, datetime
-import os
+from datetime import datetime
 import json
 import logging
 
