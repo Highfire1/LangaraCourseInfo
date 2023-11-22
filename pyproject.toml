@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "LangaraCourseInfo"
 
-version = "1.0.7"
+version = "1.0.11"
 
 description = "Langara Course Information Aggregator"
 readme = "README.md"
