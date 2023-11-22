@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 import sqlite3
 import time
 
@@ -218,9 +219,9 @@ class Database:
      
     
     def getSchedules(self, year, term, crn) -> ScheduleEntry | None:
-        s_db = self.cursor.execute("SELECT * FROM Schedules WHERE year=? AND term=? AND crn=?", (year, term, crn))
+        s_db = self.cursor.execute("SELECT * FROM Schedules WHERE year=? AND term=? AND crn=? ORDER BY type DESC", (year, term, crn))
         s_db = s_db.fetchall()
-                
+                        
         if s_db is None:
             return None
 
@@ -294,13 +295,19 @@ class Utilities():
         # Delete PDF files from filesystem
         #TransferScraper.sendPDFToDatabase()
     
-    def exportDatabase(self, filename_override=None):
+    def exportDatabase(self, filename_override=None, delete_prev=True):
         t = datetime.today()
         
         fn = filename_override
         if filename_override == None:
             fn = f'LangaraCourseInfo{t.year}{t.month}{t.day}.db'
         
+        if delete_prev:
+            try:
+                os.remove(fn)
+            except OSError:
+                pass
+
         new_db = sqlite3.connect(fn)
         # copies all tables
         query = "".join(line for line in self.db.connection.iterdump())
@@ -350,7 +357,7 @@ class Utilities():
     def updateCurrentSemester(self) -> list[tuple[Course|None, Course]]:
         
         # Get Last semester.
-        yt = self.db.cursor.execute("SELECT year, term FROM SemesterHTML ORDER BY year DESC, term DESC").fetchone()
+        yt = self.db.cursor.execute("SELECT year, term FROM Sections ORDER BY year DESC, term DESC").fetchone()
                 
         term = fetchTermFromWeb(yt[0], yt[1])
                     
