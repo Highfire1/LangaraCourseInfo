@@ -25,3 +25,7 @@ The transfer agreement scraper currently takes an excruciating amount of time - 
  - SQLite
  - Selenium
  - Beautifulsoup
+
+# Build
+- `python -m build` Build the package.
+- `twine upload -r pypi dist/*` Upload the package to pypi.
